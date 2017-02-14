@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class Tile : MonoBehaviour {
 
+	public int indRow;
+	public int indCol;
+
+
 	public int Number{
 		get{ 
 			return number;
@@ -42,6 +46,36 @@ public class Tile : MonoBehaviour {
 				break;
 			case 2:
 				ApplyStyleFromHolder (1);
+				break;
+			case 3:
+				ApplyStyleFromHolder (2);
+				break;
+			case 4:
+				ApplyStyleFromHolder (3);
+				break;
+			case 5:
+				ApplyStyleFromHolder (4);
+				break;
+			case 6:
+				ApplyStyleFromHolder (5);
+				break;
+			case 7:
+				ApplyStyleFromHolder (6);
+				break;
+			case 8:
+				ApplyStyleFromHolder (7);
+				break;
+			case 9:
+				ApplyStyleFromHolder (8);
+				break;
+			case 10:
+				ApplyStyleFromHolder (9);
+				break;
+			case 11:
+				ApplyStyleFromHolder (10);
+				break;
+			case 12:
+				ApplyStyleFromHolder (11);
 				break;
 		default:
 				Debug.Log ("Please Select Correct index");
