@@ -9,22 +9,24 @@ public class Tile : MonoBehaviour {
 	public int indCol;
 
 
-	public int Number{
-		get{ 
+	public int Number
+	{
+		get
+		{
 			return number;
 		}
-		set{ 
+		set
+		{
 			number = value;
-
-			if (number == 0) {
-				SetEmpty ();
-			} else {
-				ApplyStyle (number);
-				SetVisible ();
+			if (number == 0)
+				SetEmpty();
+			else 
+			{
+				ApplyStyle(number);
+				SetVisible();
 			}
 		}
 	}
-
 
 	private int number;
 
