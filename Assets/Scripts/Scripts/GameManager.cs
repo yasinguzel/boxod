@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
 
-	private Tile[,] AllTiles = new Tile[4,4];
+	private Tile[,] AllTiles = new Tile[4, 4];
 	private List<Tile[]> columns = new List<Tile[]> ();
 	private List<Tile[]> rows = new List<Tile[]> ();
 	private List<Tile> EmptyTiles = new List<Tile> ();
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
 		Tile[] AllTilesOneDim = GameObject.FindObjectsOfType<Tile> ();
 
 		foreach (Tile t in AllTilesOneDim) {
@@ -19,29 +21,35 @@ public class GameManager : MonoBehaviour {
 			EmptyTiles.Add (t);
 		}
 
-		columns.Add (new Tile[]{AllTiles [0, 0], AllTiles [1, 0], AllTiles [2, 0], AllTiles [3, 0]});
-		columns.Add (new Tile[]{AllTiles [0, 1], AllTiles [1, 1], AllTiles [2, 1], AllTiles [3, 1]});
-		columns.Add (new Tile[]{AllTiles [0, 2], AllTiles [1, 2], AllTiles [2, 2], AllTiles [3, 2]});
-		columns.Add (new Tile[]{AllTiles [0, 3], AllTiles [1, 3], AllTiles [2, 3], AllTiles [3, 3]});
+		columns.Add (new Tile[]{ AllTiles [0, 0], AllTiles [1, 0], AllTiles [2, 0], AllTiles [3, 0] });
+		columns.Add (new Tile[]{ AllTiles [0, 1], AllTiles [1, 1], AllTiles [2, 1], AllTiles [3, 1] });
+		columns.Add (new Tile[]{ AllTiles [0, 2], AllTiles [1, 2], AllTiles [2, 2], AllTiles [3, 2] });
+		columns.Add (new Tile[]{ AllTiles [0, 3], AllTiles [1, 3], AllTiles [2, 3], AllTiles [3, 3] });
 
-		rows.Add (new Tile[]{AllTiles [0, 0], AllTiles [0, 1], AllTiles [0, 2], AllTiles [0, 3]});
-		rows.Add (new Tile[]{AllTiles [1, 0], AllTiles [1, 1], AllTiles [1, 2], AllTiles [1, 3]});
-		rows.Add (new Tile[]{AllTiles [2, 0], AllTiles [2, 1], AllTiles [2, 2], AllTiles [2, 3]});
-		rows.Add (new Tile[]{AllTiles [3, 0], AllTiles [3, 1], AllTiles [3, 2], AllTiles [3, 3]});
+		rows.Add (new Tile[]{ AllTiles [0, 0], AllTiles [0, 1], AllTiles [0, 2], AllTiles [0, 3] });
+		rows.Add (new Tile[]{ AllTiles [1, 0], AllTiles [1, 1], AllTiles [1, 2], AllTiles [1, 3] });
+		rows.Add (new Tile[]{ AllTiles [2, 0], AllTiles [2, 1], AllTiles [2, 2], AllTiles [2, 3] });
+		rows.Add (new Tile[]{ AllTiles [3, 0], AllTiles [3, 1], AllTiles [3, 2], AllTiles [3, 3] });
 
 	}
 
 
 
-	bool MakeOneMoveDownIndex(Tile[] LineOfTiles)
+	bool MakeOneMoveDownIndex (Tile[] LineOfTiles)
 	{
-		for (int i =0; i< LineOfTiles.Length-1; i++) 
-		{
+		for (int i = 0; i < LineOfTiles.Length - 1; i++) {
 			//MOVE BLOCK 
-			if (LineOfTiles[i].Number == 0 && LineOfTiles[i+1].Number != 0)
-			{
-				LineOfTiles[i].Number = LineOfTiles[i+1].Number;
-				LineOfTiles[i+1].Number = 0;
+			if (LineOfTiles [i].Number == 0 && LineOfTiles [i + 1].Number != 0) {
+				LineOfTiles [i].Number = LineOfTiles [i + 1].Number;
+				LineOfTiles [i + 1].Number = 0;
+				return true;
+			}
+
+			//MERGE BLOCK
+			if (LineOfTiles [i].Number != 0 && LineOfTiles [i].Number == LineOfTiles [i + 1].Number && LineOfTiles [i].mergedThisTurn == false && LineOfTiles [i + 1].mergedThisTurn == false) {
+				LineOfTiles [i].Number += 1;
+				LineOfTiles [i + 1].Number = 0;
+				LineOfTiles [i].mergedThisTurn = true;
 				return true;
 			}
 
@@ -49,29 +57,38 @@ public class GameManager : MonoBehaviour {
 		return false;
 	}
 
-	bool MakeOneMoveUpIndex(Tile[] LineOfTiles)
+	bool MakeOneMoveUpIndex (Tile[] LineOfTiles)
 	{
-		for (int i =LineOfTiles.Length-1; i > 0; i--) 
-		{
+		for (int i = LineOfTiles.Length - 1; i > 0; i--) {
+			
 			//MOVE BLOCK 
-			if (LineOfTiles[i].Number == 0 && LineOfTiles[i-1].Number != 0)
-			{
-				LineOfTiles[i].Number = LineOfTiles[i-1].Number;
-				LineOfTiles[i-1].Number = 0;
+			if (LineOfTiles [i].Number == 0 && LineOfTiles [i - 1].Number != 0) {
+				LineOfTiles [i].Number = LineOfTiles [i - 1].Number;
+				LineOfTiles [i - 1].Number = 0;
 				return true;
 			}
+
+			//MERGE BLOCK
+			if (LineOfTiles [i].Number != 0 && LineOfTiles [i].Number == LineOfTiles [i - 1].Number && LineOfTiles [i].mergedThisTurn == false && LineOfTiles [i - 1].mergedThisTurn == false) {
+				LineOfTiles [i].Number += 1;
+				LineOfTiles [i - 1].Number = 0;
+				LineOfTiles [i].mergedThisTurn = true;
+				return true;
+			}
+
 
 		}
 		return false;
 	}
 
-	void Generate(){
+	void Generate ()
+	{
 		if (EmptyTiles.Count > 0) {
 			int indexForNewNumber = Random.Range (0, EmptyTiles.Count);
 			int randomNum = Random.Range (0, 12);
-			if(randomNum == 0)
+			if (randomNum == 0)
 				EmptyTiles [indexForNewNumber].Number = 2;
-			else 
+			else
 				EmptyTiles [indexForNewNumber].Number = 1;
 			
 			EmptyTiles.RemoveAt (indexForNewNumber);
@@ -79,21 +96,32 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 		if (Input.GetKeyDown (KeyCode.G)) {
 			Generate ();
 		}
 	}
 
-	public void Move(MoveDirection md){
+	private void ResetMergedFlags ()
+	{
+		foreach (Tile t in AllTiles)
+			t.mergedThisTurn = false;
+	}
+
+	public void Move (MoveDirection md)
+	{
 		Debug.Log (md.ToString () + "move");
+
+		ResetMergedFlags ();
+
 		for (int i = 0; i < rows.Count; i++) {
 			switch (md) {
 			case MoveDirection.Down:
 				while (MakeOneMoveUpIndex (columns [i])) {
 				
 				}
-					break;
+				break;
 			case MoveDirection.Left:
 				while (MakeOneMoveDownIndex (rows [i])) {
 
@@ -101,7 +129,7 @@ public class GameManager : MonoBehaviour {
 				break;
 			case MoveDirection.Right:
 				while (MakeOneMoveUpIndex (rows [i])) {
-
+					
 				}
 				break;
 			case MoveDirection.Up:
