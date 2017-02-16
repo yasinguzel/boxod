@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
 			}
 
 			//MERGE BLOCK
-			if (LineOfTiles [i].Number != 0 && LineOfTiles [i].Number == LineOfTiles [i - 1].Number && LineOfTiles [i].mergedThisTurn == false && LineOfTiles [i - 1].mergedThisTurn == false) {
+			if (LineOfTiles [i].Number != 0 && LineOfTiles [i].Number == LineOfTiles [i - 1].Number && LineOfTiles [i].mergedThisTurn == false && LineOfTiles [i - 1].mergedThisTurn == false && FindColorGroup (LineOfTiles, i) == FindColorGroup (LineOfTiles, i - 1)) {
 				LineOfTiles [i].Number += 1;
 				LineOfTiles [i - 1].Number = 0;
 				LineOfTiles [i].mergedThisTurn = true;
@@ -89,11 +89,13 @@ public class GameManager : MonoBehaviour
 	{
 		if (EmptyTiles.Count > 0) {
 			int indexForNewNumber = Random.Range (0, EmptyTiles.Count);
-			int randomNum = Random.Range (0, 12);
+			int randomNum = Random.Range (0, 3);
 			if (randomNum == 0)
-				EmptyTiles [indexForNewNumber].Number = 2;
-			else
 				EmptyTiles [indexForNewNumber].Number = 1;
+			else if (randomNum == 2)
+				EmptyTiles [indexForNewNumber].Number = 5;
+			else
+				EmptyTiles [indexForNewNumber].Number = 9;
 			
 			EmptyTiles.RemoveAt (indexForNewNumber);
 		}
@@ -121,6 +123,16 @@ public class GameManager : MonoBehaviour
 				EmptyTiles.Add (t);
 			}
 		}
+	}
+
+	private string FindColorGroup (Tile[] LineOfTiles, int index)
+	{
+		if (LineOfTiles [index].Number >= 1 && LineOfTiles [index].Number <= 4)
+			return "Yellow";
+		else if (LineOfTiles [index].Number >= 5 && LineOfTiles [index].Number <= 8)
+			return "Blue";
+		else
+			return "Green";
 	}
 
 	public void Move (MoveDirection md)
