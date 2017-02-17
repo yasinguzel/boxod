@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
 
-	private Tile[,] AllTiles = new Tile[4, 4];
+	private Tile[,] AllTiles = new Tile[6, 6];
 	private List<Tile[]> columns = new List<Tile[]> ();
 	private List<Tile[]> rows = new List<Tile[]> ();
 	private List<Tile> EmptyTiles = new List<Tile> ();
@@ -21,15 +22,103 @@ public class GameManager : MonoBehaviour
 			EmptyTiles.Add (t);
 		}
 
-		columns.Add (new Tile[]{ AllTiles [0, 0], AllTiles [1, 0], AllTiles [2, 0], AllTiles [3, 0] });
-		columns.Add (new Tile[]{ AllTiles [0, 1], AllTiles [1, 1], AllTiles [2, 1], AllTiles [3, 1] });
-		columns.Add (new Tile[]{ AllTiles [0, 2], AllTiles [1, 2], AllTiles [2, 2], AllTiles [3, 2] });
-		columns.Add (new Tile[]{ AllTiles [0, 3], AllTiles [1, 3], AllTiles [2, 3], AllTiles [3, 3] });
+		columns.Add (new Tile[] {
+			AllTiles [0, 0],
+			AllTiles [1, 0],
+			AllTiles [2, 0],
+			AllTiles [3, 0],
+			AllTiles [4, 0],
+			AllTiles [5, 0]
+		});
+		columns.Add (new Tile[] {
+			AllTiles [0, 1],
+			AllTiles [1, 1],
+			AllTiles [2, 1],
+			AllTiles [3, 1],
+			AllTiles [4, 1],
+			AllTiles [5, 1]
+		});
+		columns.Add (new Tile[] {
+			AllTiles [0, 2],
+			AllTiles [1, 2],
+			AllTiles [2, 2],
+			AllTiles [3, 2],
+			AllTiles [4, 2],
+			AllTiles [5, 2]
+		});
+		columns.Add (new Tile[] {
+			AllTiles [0, 3],
+			AllTiles [1, 3],
+			AllTiles [2, 3],
+			AllTiles [3, 3],
+			AllTiles [4, 3],
+			AllTiles [5, 3]
+		});
+		columns.Add (new Tile[] {
+			AllTiles [0, 4],
+			AllTiles [1, 4],
+			AllTiles [2, 4],
+			AllTiles [3, 4],
+			AllTiles [4, 4],
+			AllTiles [5, 4]
+		});
+		columns.Add (new Tile[] {
+			AllTiles [0, 5],
+			AllTiles [1, 5],
+			AllTiles [2, 5],
+			AllTiles [3, 5],
+			AllTiles [4, 5],
+			AllTiles [5, 5]
+		});
 
-		rows.Add (new Tile[]{ AllTiles [0, 0], AllTiles [0, 1], AllTiles [0, 2], AllTiles [0, 3] });
-		rows.Add (new Tile[]{ AllTiles [1, 0], AllTiles [1, 1], AllTiles [1, 2], AllTiles [1, 3] });
-		rows.Add (new Tile[]{ AllTiles [2, 0], AllTiles [2, 1], AllTiles [2, 2], AllTiles [2, 3] });
-		rows.Add (new Tile[]{ AllTiles [3, 0], AllTiles [3, 1], AllTiles [3, 2], AllTiles [3, 3] });
+		rows.Add (new Tile[] {
+			AllTiles [0, 0],
+			AllTiles [0, 1],
+			AllTiles [0, 2],
+			AllTiles [0, 3],
+			AllTiles [0, 4],
+			AllTiles [0, 5]
+		});
+		rows.Add (new Tile[] {
+			AllTiles [1, 0],
+			AllTiles [1, 1],
+			AllTiles [1, 2],
+			AllTiles [1, 3],
+			AllTiles [1, 4],
+			AllTiles [1, 5]
+		});
+		rows.Add (new Tile[] {
+			AllTiles [2, 0],
+			AllTiles [2, 1],
+			AllTiles [2, 2],
+			AllTiles [2, 3],
+			AllTiles [2, 4],
+			AllTiles [2, 5]
+		});
+		rows.Add (new Tile[] {
+			AllTiles [3, 0],
+			AllTiles [3, 1],
+			AllTiles [3, 2],
+			AllTiles [3, 3],
+			AllTiles [3, 4],
+			AllTiles [3, 5]
+		});
+		rows.Add (new Tile[] {
+			AllTiles [4, 0],
+			AllTiles [4, 1],
+			AllTiles [4, 2],
+			AllTiles [4, 3],
+			AllTiles [4, 4],
+			AllTiles [4, 5]
+		});
+		rows.Add (new Tile[] {
+			AllTiles [5, 0],
+			AllTiles [5, 1],
+			AllTiles [5, 2],
+			AllTiles [5, 3],
+			AllTiles [5, 4],
+			AllTiles [5, 5]
+		});
 
 
 		Generate ();
@@ -55,9 +144,15 @@ public class GameManager : MonoBehaviour
 				LineOfTiles [i + 1].Number = 0;
 				LineOfTiles [i].mergedThisTurn = true;
 
-				if (LineOfTiles [i].Number == 4 || LineOfTiles [i].Number == 8 || LineOfTiles [i].Number == 12) {
+				if (LineOfTiles [i].Number == 3) {
 					LineOfTiles [i].Number = 0;
-					Debug.Log ("Destroyed Object");
+					GameObject.Find ("Canvas/Panel/Text").GetComponent<Text> ().text = "Destroyed Blue Box";
+				} else if (LineOfTiles [i].Number == 6) {
+					LineOfTiles [i].Number = 0;
+					GameObject.Find ("Canvas/Panel/Text").GetComponent<Text> ().text = "Destroyed Yellow Box";
+				} else if(LineOfTiles [i].Number == 9){
+					LineOfTiles [i].Number = 0;
+					GameObject.Find ("Canvas/Panel/Text").GetComponent<Text> ().text = "Destroyed Green Box";
 				}
 				
 				return true;
@@ -84,9 +179,15 @@ public class GameManager : MonoBehaviour
 				LineOfTiles [i - 1].Number = 0;
 				LineOfTiles [i].mergedThisTurn = true;
 
-				if (LineOfTiles [i].Number == 4 || LineOfTiles [i].Number == 8 || LineOfTiles [i].Number == 12) {
+				if (LineOfTiles [i].Number == 3) {
 					LineOfTiles [i].Number = 0;
-					Debug.Log ("Destroyed Object");
+					GameObject.Find ("Canvas/Panel/Text").GetComponent<Text> ().text = "Destroyed Blue Box";
+				} else if (LineOfTiles [i].Number == 6) {
+					LineOfTiles [i].Number = 0;
+					GameObject.Find ("Canvas/Panel/Text").GetComponent<Text> ().text = "Destroyed Yellow Box";
+				} else if(LineOfTiles [i].Number == 9){
+					LineOfTiles [i].Number = 0;
+					GameObject.Find ("Canvas/Panel/Text").GetComponent<Text> ().text = "Destroyed Green Box";
 				}
 				
 				return true;
@@ -105,21 +206,13 @@ public class GameManager : MonoBehaviour
 			if (randomNum == 0)
 				EmptyTiles [indexForNewNumber].Number = 1;
 			else if (randomNum == 2)
-				EmptyTiles [indexForNewNumber].Number = 5;
+				EmptyTiles [indexForNewNumber].Number = 4;
 			else
-				EmptyTiles [indexForNewNumber].Number = 9;
+				EmptyTiles [indexForNewNumber].Number = 7;
 			
 			EmptyTiles.RemoveAt (indexForNewNumber);
 		}
 	}
-	
-	// Update is called once per frame
-	/*void Update ()
-	{
-		if (Input.GetKeyDown (KeyCode.G)) {
-			Generate ();
-		}
-	}*/
 
 	private void ResetMergedFlags ()
 	{
@@ -139,9 +232,9 @@ public class GameManager : MonoBehaviour
 
 	private string FindColorGroup (Tile[] LineOfTiles, int index)
 	{
-		if (LineOfTiles [index].Number >= 1 && LineOfTiles [index].Number <= 4)
+		if (LineOfTiles [index].Number >= 1 && LineOfTiles [index].Number <= 3)
 			return "Yellow";
-		else if (LineOfTiles [index].Number >= 5 && LineOfTiles [index].Number <= 8)
+		else if (LineOfTiles [index].Number >= 4 && LineOfTiles [index].Number <= 6)
 			return "Blue";
 		else
 			return "Green";
@@ -188,7 +281,7 @@ public class GameManager : MonoBehaviour
 			UpdateEmptyTiles ();
 			Generate ();
 		}
-
+			
 			
 	}
 }
