@@ -54,6 +54,12 @@ public class GameManager : MonoBehaviour
 				LineOfTiles [i].Number += 1;
 				LineOfTiles [i + 1].Number = 0;
 				LineOfTiles [i].mergedThisTurn = true;
+
+				if (LineOfTiles [i].Number == 4 || LineOfTiles [i].Number == 8 || LineOfTiles [i].Number == 12) {
+					LineOfTiles [i].Number = 0;
+					Debug.Log ("Destroyed Object");
+				}
+				
 				return true;
 			}
 
@@ -77,6 +83,12 @@ public class GameManager : MonoBehaviour
 				LineOfTiles [i].Number += 1;
 				LineOfTiles [i - 1].Number = 0;
 				LineOfTiles [i].mergedThisTurn = true;
+
+				if (LineOfTiles [i].Number == 4 || LineOfTiles [i].Number == 8 || LineOfTiles [i].Number == 12) {
+					LineOfTiles [i].Number = 0;
+					Debug.Log ("Destroyed Object");
+				}
+				
 				return true;
 			}
 
@@ -133,6 +145,11 @@ public class GameManager : MonoBehaviour
 			return "Blue";
 		else
 			return "Green";
+	}
+
+	public void NewGameButtonHandler ()
+	{
+		Application.LoadLevel (Application.loadedLevel);
 	}
 
 	public void Move (MoveDirection md)
