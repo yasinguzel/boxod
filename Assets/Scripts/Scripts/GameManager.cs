@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
 
-	private Tile[,] AllTiles = new Tile[6, 6];
+	private Tile[,] AllTiles = new Tile[5, 5];
 	private List<Tile[]> columns = new List<Tile[]> ();
 	private List<Tile[]> rows = new List<Tile[]> ();
 	private List<Tile> EmptyTiles = new List<Tile> ();
@@ -28,7 +28,6 @@ public class GameManager : MonoBehaviour
 			AllTiles [2, 0],
 			AllTiles [3, 0],
 			AllTiles [4, 0],
-			AllTiles [5, 0]
 		});
 		columns.Add (new Tile[] {
 			AllTiles [0, 1],
@@ -36,7 +35,6 @@ public class GameManager : MonoBehaviour
 			AllTiles [2, 1],
 			AllTiles [3, 1],
 			AllTiles [4, 1],
-			AllTiles [5, 1]
 		});
 		columns.Add (new Tile[] {
 			AllTiles [0, 2],
@@ -44,7 +42,6 @@ public class GameManager : MonoBehaviour
 			AllTiles [2, 2],
 			AllTiles [3, 2],
 			AllTiles [4, 2],
-			AllTiles [5, 2]
 		});
 		columns.Add (new Tile[] {
 			AllTiles [0, 3],
@@ -52,7 +49,6 @@ public class GameManager : MonoBehaviour
 			AllTiles [2, 3],
 			AllTiles [3, 3],
 			AllTiles [4, 3],
-			AllTiles [5, 3]
 		});
 		columns.Add (new Tile[] {
 			AllTiles [0, 4],
@@ -60,15 +56,6 @@ public class GameManager : MonoBehaviour
 			AllTiles [2, 4],
 			AllTiles [3, 4],
 			AllTiles [4, 4],
-			AllTiles [5, 4]
-		});
-		columns.Add (new Tile[] {
-			AllTiles [0, 5],
-			AllTiles [1, 5],
-			AllTiles [2, 5],
-			AllTiles [3, 5],
-			AllTiles [4, 5],
-			AllTiles [5, 5]
 		});
 
 		rows.Add (new Tile[] {
@@ -77,7 +64,6 @@ public class GameManager : MonoBehaviour
 			AllTiles [0, 2],
 			AllTiles [0, 3],
 			AllTiles [0, 4],
-			AllTiles [0, 5]
 		});
 		rows.Add (new Tile[] {
 			AllTiles [1, 0],
@@ -85,7 +71,6 @@ public class GameManager : MonoBehaviour
 			AllTiles [1, 2],
 			AllTiles [1, 3],
 			AllTiles [1, 4],
-			AllTiles [1, 5]
 		});
 		rows.Add (new Tile[] {
 			AllTiles [2, 0],
@@ -93,7 +78,6 @@ public class GameManager : MonoBehaviour
 			AllTiles [2, 2],
 			AllTiles [2, 3],
 			AllTiles [2, 4],
-			AllTiles [2, 5]
 		});
 		rows.Add (new Tile[] {
 			AllTiles [3, 0],
@@ -101,7 +85,6 @@ public class GameManager : MonoBehaviour
 			AllTiles [3, 2],
 			AllTiles [3, 3],
 			AllTiles [3, 4],
-			AllTiles [3, 5]
 		});
 		rows.Add (new Tile[] {
 			AllTiles [4, 0],
@@ -109,16 +92,8 @@ public class GameManager : MonoBehaviour
 			AllTiles [4, 2],
 			AllTiles [4, 3],
 			AllTiles [4, 4],
-			AllTiles [4, 5]
 		});
-		rows.Add (new Tile[] {
-			AllTiles [5, 0],
-			AllTiles [5, 1],
-			AllTiles [5, 2],
-			AllTiles [5, 3],
-			AllTiles [5, 4],
-			AllTiles [5, 5]
-		});
+
 
 
 		Generate ();
@@ -150,7 +125,7 @@ public class GameManager : MonoBehaviour
 				} else if (LineOfTiles [i].Number == 6) {
 					LineOfTiles [i].Number = 0;
 					GameObject.Find ("Canvas/Panel/Text").GetComponent<Text> ().text = "Destroyed Yellow Box";
-				} else if(LineOfTiles [i].Number == 9){
+				} else if (LineOfTiles [i].Number == 9) {
 					LineOfTiles [i].Number = 0;
 					GameObject.Find ("Canvas/Panel/Text").GetComponent<Text> ().text = "Destroyed Green Box";
 				}
@@ -185,7 +160,7 @@ public class GameManager : MonoBehaviour
 				} else if (LineOfTiles [i].Number == 6) {
 					LineOfTiles [i].Number = 0;
 					GameObject.Find ("Canvas/Panel/Text").GetComponent<Text> ().text = "Destroyed Yellow Box";
-				} else if(LineOfTiles [i].Number == 9){
+				} else if (LineOfTiles [i].Number == 9) {
 					LineOfTiles [i].Number = 0;
 					GameObject.Find ("Canvas/Panel/Text").GetComponent<Text> ().text = "Destroyed Green Box";
 				}
