@@ -69,6 +69,18 @@ public class Tile : MonoBehaviour
 		case 8:
 			ApplyStyleFromHolder (7);
 			break;
+		case 9:
+			ApplyStyleFromHolder (8);
+			break;
+		case 10:
+			ApplyStyleFromHolder (9);
+			break;
+		case 11:
+			ApplyStyleFromHolder (10);
+			break;
+		case 12:
+			ApplyStyleFromHolder (11);
+			break;
 		default:
 			Debug.Log ("Please Select Correct index");
 			break;

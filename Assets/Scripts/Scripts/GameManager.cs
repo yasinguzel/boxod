@@ -114,18 +114,18 @@ public class GameManager : MonoBehaviour
 			}
 
 			//MERGE BLOCK
-			if (LineOfTiles [i].Number != 0 && LineOfTiles [i].Number == LineOfTiles [i + 1].Number && LineOfTiles [i].mergedThisTurn == false && LineOfTiles [i + 1].mergedThisTurn == false) {
+			if (LineOfTiles [i].Number != 0 && LineOfTiles [i].Number == LineOfTiles [i + 1].Number && LineOfTiles [i].mergedThisTurn == false && LineOfTiles [i + 1].mergedThisTurn == false && FindColorGroup (LineOfTiles, i) == FindColorGroup (LineOfTiles, i + 1)) {
 				LineOfTiles [i].Number += 1;
 				LineOfTiles [i + 1].Number = 0;
 				LineOfTiles [i].mergedThisTurn = true;
 
-				if (LineOfTiles [i].Number == 3) {
+				if (LineOfTiles [i].Number == 4) {
 					LineOfTiles [i].Number = 0;
 					GameObject.Find ("Canvas/Panel/Text").GetComponent<Text> ().text = "Destroyed Blue Box";
-				} else if (LineOfTiles [i].Number == 6) {
+				} else if (LineOfTiles [i].Number == 8) {
 					LineOfTiles [i].Number = 0;
 					GameObject.Find ("Canvas/Panel/Text").GetComponent<Text> ().text = "Destroyed Yellow Box";
-				} else if (LineOfTiles [i].Number == 9) {
+				} else if(LineOfTiles [i].Number == 12){
 					LineOfTiles [i].Number = 0;
 					GameObject.Find ("Canvas/Panel/Text").GetComponent<Text> ().text = "Destroyed Green Box";
 				}
@@ -154,13 +154,13 @@ public class GameManager : MonoBehaviour
 				LineOfTiles [i - 1].Number = 0;
 				LineOfTiles [i].mergedThisTurn = true;
 
-				if (LineOfTiles [i].Number == 3) {
+				if (LineOfTiles [i].Number == 4) {
 					LineOfTiles [i].Number = 0;
 					GameObject.Find ("Canvas/Panel/Text").GetComponent<Text> ().text = "Destroyed Blue Box";
-				} else if (LineOfTiles [i].Number == 6) {
+				} else if (LineOfTiles [i].Number == 8) {
 					LineOfTiles [i].Number = 0;
 					GameObject.Find ("Canvas/Panel/Text").GetComponent<Text> ().text = "Destroyed Yellow Box";
-				} else if (LineOfTiles [i].Number == 9) {
+				} else if(LineOfTiles [i].Number == 12){
 					LineOfTiles [i].Number = 0;
 					GameObject.Find ("Canvas/Panel/Text").GetComponent<Text> ().text = "Destroyed Green Box";
 				}
@@ -181,9 +181,9 @@ public class GameManager : MonoBehaviour
 			if (randomNum == 0)
 				EmptyTiles [indexForNewNumber].Number = 1;
 			else if (randomNum == 2)
-				EmptyTiles [indexForNewNumber].Number = 4;
+				EmptyTiles [indexForNewNumber].Number = 5;
 			else
-				EmptyTiles [indexForNewNumber].Number = 7;
+				EmptyTiles [indexForNewNumber].Number = 9;
 			
 			EmptyTiles.RemoveAt (indexForNewNumber);
 		}
@@ -207,9 +207,9 @@ public class GameManager : MonoBehaviour
 
 	private string FindColorGroup (Tile[] LineOfTiles, int index)
 	{
-		if (LineOfTiles [index].Number >= 1 && LineOfTiles [index].Number <= 3)
+		if (LineOfTiles [index].Number >= 1 && LineOfTiles [index].Number <= 4)
 			return "Yellow";
-		else if (LineOfTiles [index].Number >= 4 && LineOfTiles [index].Number <= 6)
+		else if (LineOfTiles [index].Number >= 5 && LineOfTiles [index].Number <= 8)
 			return "Blue";
 		else
 			return "Green";
