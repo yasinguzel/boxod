@@ -31,13 +31,13 @@ public class InputManager : MonoBehaviour
 	{
 
 		if (Input.GetKeyDown (KeyCode.RightArrow)) {
-			gm.Move (MoveDirection.Right);
+			gm.Move (MoveDirection.Right, true);
 		} else if (Input.GetKeyDown (KeyCode.UpArrow)) {
-			gm.Move (MoveDirection.Up);
+			gm.Move (MoveDirection.Up, true);
 		} else if (Input.GetKeyDown (KeyCode.LeftArrow)) {
-			gm.Move (MoveDirection.Left);
+			gm.Move (MoveDirection.Left, true);
 		} else if (Input.GetKeyDown (KeyCode.DownArrow)) {
-			gm.Move (MoveDirection.Down);
+			gm.Move (MoveDirection.Down, true);
 		}
 
 	}

@@ -125,7 +125,7 @@ public class GameManager : MonoBehaviour
 				} else if (LineOfTiles [i].Number == 8) {
 					LineOfTiles [i].Number = 0;
 					GameObject.Find ("Canvas/Panel/Text").GetComponent<Text> ().text = "Destroyed Yellow Box";
-				} else if(LineOfTiles [i].Number == 12){
+				} else if (LineOfTiles [i].Number == 12) {
 					LineOfTiles [i].Number = 0;
 					GameObject.Find ("Canvas/Panel/Text").GetComponent<Text> ().text = "Destroyed Green Box";
 				}
@@ -160,7 +160,7 @@ public class GameManager : MonoBehaviour
 				} else if (LineOfTiles [i].Number == 8) {
 					LineOfTiles [i].Number = 0;
 					GameObject.Find ("Canvas/Panel/Text").GetComponent<Text> ().text = "Destroyed Yellow Box";
-				} else if(LineOfTiles [i].Number == 12){
+				} else if (LineOfTiles [i].Number == 12) {
 					LineOfTiles [i].Number = 0;
 					GameObject.Find ("Canvas/Panel/Text").GetComponent<Text> ().text = "Destroyed Green Box";
 				}
@@ -215,14 +215,37 @@ public class GameManager : MonoBehaviour
 			return "Green";
 	}
 
+	public void ShuffleButtonHandler ()
+	{
+		Tile[] AllTilesOneDim = GameObject.FindObjectsOfType<Tile> ();
+		int [] tilesNumbers = new int [25];
+		int k = 0;
+
+		for (int i = 0; i < AllTiles.GetLength(0); i++) {
+			for (int j = 0; j < AllTiles.GetLength (1); j++) {
+				tilesNumbers [k] = AllTiles [i, j].Number;
+				k++;
+			}
+		}
+
+		k = 0;
+
+		foreach (Tile t in AllTilesOneDim) {
+			t.Number = tilesNumbers [k];
+			AllTiles [t.indRow, t.indCol] = t;
+			k++;
+		}
+
+
+	}
+
 	public void NewGameButtonHandler ()
 	{
 		Application.LoadLevel (Application.loadedLevel);
 	}
 
-	public void Move (MoveDirection md)
+	public void Move (MoveDirection md, bool generate)
 	{
-		Debug.Log (md.ToString () + "move");
 
 		ResetMergedFlags ();
 		bool moveMade = false;
@@ -254,7 +277,8 @@ public class GameManager : MonoBehaviour
 
 		if (moveMade) {
 			UpdateEmptyTiles ();
-			Generate ();
+			if (generate)
+				Generate ();
 		}
 			
 			
