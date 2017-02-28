@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class GameManager : MonoBehaviour
 	private List<Tile[]> columns = new List<Tile[]> ();
 	private List<Tile[]> rows = new List<Tile[]> ();
 	private List<Tile> EmptyTiles = new List<Tile> ();
+	private List<int[]> savedTiles = new List<int[]> ();
 
 	// Use this for initialization
 	void Start ()
@@ -217,11 +219,12 @@ public class GameManager : MonoBehaviour
 
 	public void ShuffleButtonHandler ()
 	{
+		SaveGamePosition ();
 		Tile[] AllTilesOneDim = GameObject.FindObjectsOfType<Tile> ();
-		int [] tilesNumbers = new int [25];
+		int[] tilesNumbers = new int [25];
 		int k = 0;
 
-		for (int i = 0; i < AllTiles.GetLength(0); i++) {
+		for (int i = 0; i < AllTiles.GetLength (0); i++) {
 			for (int j = 0; j < AllTiles.GetLength (1); j++) {
 				tilesNumbers [k] = AllTiles [i, j].Number;
 				k++;
@@ -239,14 +242,52 @@ public class GameManager : MonoBehaviour
 
 	}
 
+	public void UndoButtonHandler ()
+	{
+		UndoLastGamePosition ();
+	}
+
+	private void SaveGamePosition ()
+	{
+		int[] savedTilesNumbers = new int[25];
+		int k = 0;
+		for (int i = 0; i < AllTiles.GetLength (0); i++) {
+			for (int j = 0; j < AllTiles.GetLength (1); j++) {
+				savedTilesNumbers [k] = AllTiles [i, j].Number;
+				k++;
+			}
+		}
+
+		savedTiles.Add (savedTilesNumbers);
+
+	}
+
+	private void UndoLastGamePosition ()
+	{
+		if (savedTiles.Count > 0) {
+			int[] savedTilesNumbers = new int[25];
+			savedTilesNumbers = savedTiles [savedTiles.Count - 1];
+
+			int k = 0;
+			for (int i = 0; i < AllTiles.GetLength (0); i++) {
+				for (int j = 0; j < AllTiles.GetLength (1); j++) {
+					AllTiles [i, j].Number = savedTilesNumbers [k];
+					k++;
+				}
+			}
+
+			savedTiles.RemoveAt (savedTiles.Count - 1);
+		}
+	}
+
 	public void NewGameButtonHandler ()
 	{
-		Application.LoadLevel (Application.loadedLevel);
+		SceneManager.LoadScene (0);
 	}
 
 	public void Move (MoveDirection md, bool generate)
 	{
-
+		SaveGamePosition ();
 		ResetMergedFlags ();
 		bool moveMade = false;
 
@@ -256,6 +297,7 @@ public class GameManager : MonoBehaviour
 				while (MakeOneMoveUpIndex (columns [i])) {
 					moveMade = true;
 				}
+
 				break;
 			case MoveDirection.Left:
 				while (MakeOneMoveDownIndex (rows [i])) {
