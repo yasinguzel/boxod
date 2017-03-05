@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 	private List<Tile[]> rows = new List<Tile[]> ();
 	private List<Tile> EmptyTiles = new List<Tile> ();
 	private List<int[]> savedTiles = new List<int[]> ();
+	private List<int> savedScores = new List<int>();
 
 	// Use this for initialization
 	void Start ()
@@ -121,15 +122,23 @@ public class GameManager : MonoBehaviour
 				LineOfTiles [i + 1].Number = 0;
 				LineOfTiles [i].mergedThisTurn = true;
 
+				if (LineOfTiles [i].Number == 2 || LineOfTiles [i].Number == 6 || LineOfTiles [i].Number == 10) {
+					ScoreTracker.Instance.Score += 3;
+				} else if (LineOfTiles [i].Number == 3 || LineOfTiles [i].Number == 7 || LineOfTiles [i].Number == 11) {
+					ScoreTracker.Instance.Score += 6;
+				} else if (LineOfTiles [i].Number == 4 || LineOfTiles [i].Number == 8 || LineOfTiles [i].Number == 12) {
+					ScoreTracker.Instance.Score += 12;
+				}
+
 				if (LineOfTiles [i].Number == 4) {
 					LineOfTiles [i].Number = 0;
-					GameObject.Find ("Canvas/Panel/Text").GetComponent<Text> ().text = "Destroyed Blue Box";
+					GameObject.Find ("Canvas/Panel/DestroyedInfo").GetComponent<Text> ().text = "Destroyed Blue Box";
 				} else if (LineOfTiles [i].Number == 8) {
 					LineOfTiles [i].Number = 0;
-					GameObject.Find ("Canvas/Panel/Text").GetComponent<Text> ().text = "Destroyed Yellow Box";
+					GameObject.Find ("Canvas/Panel/DestroyedInfo").GetComponent<Text> ().text = "Destroyed Yellow Box";
 				} else if (LineOfTiles [i].Number == 12) {
 					LineOfTiles [i].Number = 0;
-					GameObject.Find ("Canvas/Panel/Text").GetComponent<Text> ().text = "Destroyed Green Box";
+					GameObject.Find ("Canvas/Panel/DestroyedInfo").GetComponent<Text> ().text = "Destroyed Green Box";
 				}
 				
 				return true;
@@ -156,17 +165,27 @@ public class GameManager : MonoBehaviour
 				LineOfTiles [i - 1].Number = 0;
 				LineOfTiles [i].mergedThisTurn = true;
 
+				if (LineOfTiles [i].Number == 2 || LineOfTiles [i].Number == 6 || LineOfTiles [i].Number == 10) {
+					ScoreTracker.Instance.Score += 3;
+				} else if (LineOfTiles [i].Number == 3 || LineOfTiles [i].Number == 7 || LineOfTiles [i].Number == 11) {
+					ScoreTracker.Instance.Score += 6;
+				} else if (LineOfTiles [i].Number == 4 || LineOfTiles [i].Number == 8 || LineOfTiles [i].Number == 12) {
+					ScoreTracker.Instance.Score += 12;
+				}
+
 				if (LineOfTiles [i].Number == 4) {
 					LineOfTiles [i].Number = 0;
-					GameObject.Find ("Canvas/Panel/Text").GetComponent<Text> ().text = "Destroyed Blue Box";
+					GameObject.Find ("Canvas/Panel/DestroyedInfo").GetComponent<Text> ().text = "Destroyed Blue Box";
 				} else if (LineOfTiles [i].Number == 8) {
 					LineOfTiles [i].Number = 0;
-					GameObject.Find ("Canvas/Panel/Text").GetComponent<Text> ().text = "Destroyed Yellow Box";
+					GameObject.Find ("Canvas/Panel/DestroyedInfo").GetComponent<Text> ().text = "Destroyed Yellow Box";
 				} else if (LineOfTiles [i].Number == 12) {
 					LineOfTiles [i].Number = 0;
-					GameObject.Find ("Canvas/Panel/Text").GetComponent<Text> ().text = "Destroyed Green Box";
+					GameObject.Find ("Canvas/Panel/DestroyedInfo").GetComponent<Text> ().text = "Destroyed Green Box";
 				}
-				
+
+
+
 				return true;
 			}
 
@@ -250,6 +269,8 @@ public class GameManager : MonoBehaviour
 	private void SaveGamePosition ()
 	{
 		int[] savedTilesNumbers = new int[25];
+		int savedScore;
+
 		int k = 0;
 		for (int i = 0; i < AllTiles.GetLength (0); i++) {
 			for (int j = 0; j < AllTiles.GetLength (1); j++) {
@@ -260,11 +281,18 @@ public class GameManager : MonoBehaviour
 
 		savedTiles.Add (savedTilesNumbers);
 
+		savedScore = ScoreTracker.Instance.Score;
+		savedScores.Add (savedScore);
+
+
 	}
 
 	private void UndoLastGamePosition ()
 	{
 		if (savedTiles.Count > 0) {
+			int savedScore;
+			savedScore = savedScores [savedScores.Count - 1];
+
 			int[] savedTilesNumbers = new int[25];
 			savedTilesNumbers = savedTiles [savedTiles.Count - 1];
 
@@ -277,6 +305,10 @@ public class GameManager : MonoBehaviour
 			}
 
 			savedTiles.RemoveAt (savedTiles.Count - 1);
+
+			ScoreTracker.Instance.Score = savedScore;
+
+			savedScores.RemoveAt (savedScores.Count - 1);
 		}
 	}
 
