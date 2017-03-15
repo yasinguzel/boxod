@@ -15,6 +15,8 @@ public class TileStyleHolder : MonoBehaviour {
 
 	public TileStyle[] tileStyles;
 
+	public TileStyle empty;
+
 	void Awake(){
 		Instance = this;
 	}

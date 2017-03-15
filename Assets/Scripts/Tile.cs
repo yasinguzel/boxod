@@ -96,7 +96,7 @@ public class Tile : MonoBehaviour
 	private void SetEmpty ()
 	{
 
-		tileImage.enabled = false;
+		tileImage.sprite = TileStyleHolder.Instance.empty.sprite;
 	}
 	// Use this for initialization
 	void Start ()

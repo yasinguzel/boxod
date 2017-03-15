@@ -332,7 +332,7 @@ public class GameManager : MonoBehaviour
 		totalDestroyedBox = destroyedRedBox + destroyedPurpleBox + destroyedGreenBox;
 
 		if (totalDestroyedBox != 0)
-			MoneyTracker.Instance.Money += Cube (totalDestroyedBox);
+			MoneyTracker.Instance.Money += Square (totalDestroyedBox);
 
 		if (totalDestroyedBox != 0 || destroyedRedBox != 0 || destroyedPurpleBox != 0 || destroyedGreenBox != 0) {
 			Debug.Log ("Total Destroyed Box: " + totalDestroyedBox);
@@ -348,12 +348,12 @@ public class GameManager : MonoBehaviour
 		totalDestroyedBox = 0;
 	}
 
-	private int Cube (int repetition)
+	private int Square (int repetition)
 	{
 		int number = 3;
 
 		for (int i = 1; i < repetition; i++) {
-			number = number * number * number;
+			number = number * number;
 		}
 
 		return number;
