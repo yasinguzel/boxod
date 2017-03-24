@@ -6,6 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+	public Text gameOverMoney;
+	public GameObject gameOverPanel;
+	public GameObject pausePanel;
+	public GameObject shopPanel;
 
 	private Tile[,] AllTiles = new Tile[5, 5];
 	private List<Tile[]> columns = new List<Tile[]> ();
@@ -109,6 +113,42 @@ public class GameManager : MonoBehaviour
 
 	}
 
+	private void GameOver ()
+	{
+		gameOverMoney.text = MoneyTracker.Instance.Money.ToString ();
+		gameOverPanel.SetActive (true);
+	}
+
+	bool CanMove ()
+	{
+		if (EmptyTiles.Count > 0) {
+			
+			return true;
+
+		} else {
+
+			//check columns
+			for (int i = 0; i < columns.Count; i++) {
+				for (int j = 0; j < rows.Count - 1; j++) {
+					if (AllTiles [j, i].Number == AllTiles [j + 1, i].Number) {
+						return true;
+					}
+				}
+			}
+
+			//check rows
+			for (int i = 0; i < rows.Count; i++) {
+				for (int j = 0; j < columns.Count - 1; j++) {
+					if (AllTiles [i, j].Number == AllTiles [i, j + 1].Number) {
+						return true;
+					}
+				}
+			}
+		}
+
+		return false;
+	}
+
 
 
 	bool MakeOneMoveDownIndex (Tile[] LineOfTiles)
@@ -137,17 +177,17 @@ public class GameManager : MonoBehaviour
 
 				if (LineOfTiles [i].Number == 4) {
 					LineOfTiles [i].Number = 0;
-					GameObject.Find ("Canvas/Panel/DestroyedInfo").GetComponent<Text> ().text = "Destroyed Red Box";
+					GameObject.Find ("Canvas/MainPanel/DestroyedInfo").GetComponent<Text> ().text = "Destroyed Red Box";
 					destroyedRedBox++;
 				}
 				if (LineOfTiles [i].Number == 8) {
 					LineOfTiles [i].Number = 0;
-					GameObject.Find ("Canvas/Panel/DestroyedInfo").GetComponent<Text> ().text = "Destroyed Purple Box";
+					GameObject.Find ("Canvas/MainPanel/DestroyedInfo").GetComponent<Text> ().text = "Destroyed Purple Box";
 					destroyedPurpleBox++;
 				}
 				if (LineOfTiles [i].Number == 12) {
 					LineOfTiles [i].Number = 0;
-					GameObject.Find ("Canvas/Panel/DestroyedInfo").GetComponent<Text> ().text = "Destroyed Green Box";
+					GameObject.Find ("Canvas/MainPanel/DestroyedInfo").GetComponent<Text> ().text = "Destroyed Green Box";
 					destroyedGreenBox++;
 				}
 				
@@ -185,17 +225,17 @@ public class GameManager : MonoBehaviour
 
 				if (LineOfTiles [i].Number == 4) {
 					LineOfTiles [i].Number = 0;
-					GameObject.Find ("Canvas/Panel/DestroyedInfo").GetComponent<Text> ().text = "Destroyed Red Box";
+					GameObject.Find ("Canvas/MainPanel/DestroyedInfo").GetComponent<Text> ().text = "Destroyed Red Box";
 					destroyedRedBox++;
 				}
 				if (LineOfTiles [i].Number == 8) {
 					LineOfTiles [i].Number = 0;
-					GameObject.Find ("Canvas/Panel/DestroyedInfo").GetComponent<Text> ().text = "Destroyed Purple Box";
+					GameObject.Find ("Canvas/MainPanel/DestroyedInfo").GetComponent<Text> ().text = "Destroyed Purple Box";
 					destroyedPurpleBox++;
 				}
 				if (LineOfTiles [i].Number == 12) {
 					LineOfTiles [i].Number = 0;
-					GameObject.Find ("Canvas/Panel/DestroyedInfo").GetComponent<Text> ().text = "Destroyed Green Box";
+					GameObject.Find ("Canvas/MainPanel/DestroyedInfo").GetComponent<Text> ().text = "Destroyed Green Box";
 					destroyedGreenBox++;
 				}
 
@@ -279,6 +319,11 @@ public class GameManager : MonoBehaviour
 	public void UndoButtonHandler ()
 	{
 		UndoLastGamePosition ();
+	}
+
+	public void ResetMoneyHandler ()
+	{
+		MoneyTracker.Instance.Money = 0;
 	}
 
 	private void SaveGamePosition ()
@@ -365,6 +410,31 @@ public class GameManager : MonoBehaviour
 		SceneManager.LoadScene (0);
 	}
 
+	public void CloseGameOverPanelButtonHandler ()
+	{
+		gameOverPanel.SetActive (false);
+	}
+
+	public void PauseButtonButtonHandler ()
+	{
+		pausePanel.SetActive (true);
+	}
+
+	public void ClosePausePanelButtonHandler ()
+	{
+		pausePanel.SetActive (false);
+	}
+
+	public void ShopButtonButtonHandler ()
+	{
+		shopPanel.SetActive (true);
+	}
+
+	public void CloseShopPanelButtonHandler ()
+	{
+		shopPanel.SetActive (false);
+	}
+
 	public void Move (MoveDirection md, bool generate)
 	{
 		SaveGamePosition ();
@@ -400,8 +470,14 @@ public class GameManager : MonoBehaviour
 
 		if (moveMade) {
 			UpdateEmptyTiles ();
+
 			if (generate)
 				Generate ();
+
+			if (!CanMove()) {
+				GameOver ();
+			}
+			
 		}
 			
 			
