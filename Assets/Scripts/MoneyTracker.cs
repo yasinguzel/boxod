@@ -6,9 +6,10 @@ using UnityEngine.UI;
 public class MoneyTracker : MonoBehaviour
 {
 	private int money;
+	private bool isX2;
 	public static MoneyTracker Instance;
 	public Text MoneyText;
-	//public Text HighScoreText;
+	public Text isX2Text;
 
 	public int Money {
 		get { 
@@ -18,13 +19,25 @@ public class MoneyTracker : MonoBehaviour
 			money = value;
 			MoneyText.text = money.ToString ();
 			PlayerPrefs.SetInt ("Money", money);
-			//HighScoreText.text = money.ToString ();
+		}
 
-			/*if (PlayerPrefs.GetInt ("Money") < money) {
-				PlayerPrefs.SetInt ("Money",money);
-				HighScoreText.text = money.ToString ();
-			}*/
+	}
 
+	public bool IsX2 {
+		get { 
+			return isX2;
+		}
+		set { 
+			isX2 = value;
+
+			if (isX2) {
+				PlayerPrefs.SetInt ("isX2", 1);
+				isX2Text.text = "x2 True";
+			} else {
+				PlayerPrefs.SetInt ("isX2", 0);
+				isX2Text.text = "x2 False";
+			}
+				
 		}
 
 	}
@@ -34,11 +47,29 @@ public class MoneyTracker : MonoBehaviour
 	{
 		Instance = this;
 
-		if (!PlayerPrefs.HasKey ("Money"))
+		if (!PlayerPrefs.HasKey ("Money")) {
 			PlayerPrefs.SetInt ("Money", 0);
+			isX2 = false;
+		}
 
-		//ScoreText.text = "000";
+		//for debug
+		if (PlayerPrefs.GetInt("isX2") == 1) {
+			isX2Text.text = "x2 True";
+		} else {
+			isX2Text.text = "x2 False";
+		}
+
 		MoneyText.text = PlayerPrefs.GetInt ("Money").ToString ();
 		money = PlayerPrefs.GetInt ("Money");
+		if (PlayerPrefs.GetInt ("isX2") == 1)
+			isX2 = true;
+		else
+			isX2 = false;
+
+	}
+
+	void SetMoneyText (int money)
+	{
+		MoneyText.text = money.ToString ();
 	}
 }

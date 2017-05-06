@@ -8,8 +8,12 @@ public class GameManager : MonoBehaviour
 {
 	public Text gameOverMoney;
 	public GameObject gameOverPanel;
+	public GameObject opacityPanel;
 	public GameObject pausePanel;
 	public GameObject shopPanel;
+	public GameObject areYouSurePanel;
+	public GameObject opacityPanel1;
+
 
 	private Tile[,] AllTiles = new Tile[5, 5];
 	private List<Tile[]> columns = new List<Tile[]> ();
@@ -22,6 +26,9 @@ public class GameManager : MonoBehaviour
 	private int destroyedPurpleBox;
 	private int destroyedGreenBox;
 	private int totalDestroyedBox;
+	private int oneGameMoney;
+
+	private bool x2VideoButtonPressed = false;
 
 	// Use this for initialization
 	void Start ()
@@ -113,11 +120,6 @@ public class GameManager : MonoBehaviour
 
 	}
 
-	private void GameOver ()
-	{
-		gameOverMoney.text = MoneyTracker.Instance.Money.ToString ();
-		gameOverPanel.SetActive (true);
-	}
 
 	bool CanMove ()
 	{
@@ -293,32 +295,40 @@ public class GameManager : MonoBehaviour
 
 	public void ShuffleButtonHandler ()
 	{
-		SaveGamePosition ();
-		Tile[] AllTilesOneDim = GameObject.FindObjectsOfType<Tile> ();
-		int[] tilesNumbers = new int [25];
-		int k = 0;
+		if (!(MoneyTracker.Instance.Money <= 50)) {
+			SaveGamePosition ();
+			Tile[] AllTilesOneDim = GameObject.FindObjectsOfType<Tile> ();
+			int[] tilesNumbers = new int [25];
+			int k = 0;
 
-		for (int i = 0; i < AllTiles.GetLength (0); i++) {
-			for (int j = 0; j < AllTiles.GetLength (1); j++) {
-				tilesNumbers [k] = AllTiles [i, j].Number;
+			for (int i = 0; i < AllTiles.GetLength (0); i++) {
+				for (int j = 0; j < AllTiles.GetLength (1); j++) {
+					tilesNumbers [k] = AllTiles [i, j].Number;
+					k++;
+				}
+			}
+
+			k = 0;
+
+			foreach (Tile t in AllTilesOneDim) {
+				t.Number = tilesNumbers [k];
+				AllTiles [t.indRow, t.indCol] = t;
 				k++;
 			}
+			MoneyTracker.Instance.Money -= 50;
 		}
 
-		k = 0;
-
-		foreach (Tile t in AllTilesOneDim) {
-			t.Number = tilesNumbers [k];
-			AllTiles [t.indRow, t.indCol] = t;
-			k++;
-		}
 
 
 	}
 
 	public void UndoButtonHandler ()
 	{
-		UndoLastGamePosition ();
+		if (!(MoneyTracker.Instance.Money <= 5)) {
+			UndoLastGamePosition ();
+			MoneyTracker.Instance.Money -= 5;
+		}
+
 	}
 
 	public void ResetMoneyHandler ()
@@ -376,16 +386,9 @@ public class GameManager : MonoBehaviour
 	{
 		totalDestroyedBox = destroyedRedBox + destroyedPurpleBox + destroyedGreenBox;
 
-		if (totalDestroyedBox != 0)
-			MoneyTracker.Instance.Money += Square (totalDestroyedBox);
-
-		if (totalDestroyedBox != 0 || destroyedRedBox != 0 || destroyedPurpleBox != 0 || destroyedGreenBox != 0) {
-			Debug.Log ("Total Destroyed Box: " + totalDestroyedBox);
-			Debug.Log ("Destroyed Red Box: " + destroyedRedBox);
-			Debug.Log ("Destroyed Puprle Box: " + destroyedPurpleBox);
-			Debug.Log ("Destroyed Green Box: " + destroyedGreenBox);
+		if (totalDestroyedBox != 0) {
+			oneGameMoney += Square (totalDestroyedBox);
 		}
-
 
 		destroyedRedBox = 0;
 		destroyedPurpleBox = 0;
@@ -407,27 +410,32 @@ public class GameManager : MonoBehaviour
 
 	public void NewGameButtonHandler ()
 	{
-		SceneManager.LoadScene (0);
+		MoneyTracker.Instance.Money += oneGameMoney;
+		SceneManager.LoadScene (1);
 	}
 
 	public void CloseGameOverPanelButtonHandler ()
 	{
 		gameOverPanel.SetActive (false);
+		opacityPanel.SetActive (false);
 	}
 
 	public void PauseButtonButtonHandler ()
 	{
 		pausePanel.SetActive (true);
+		opacityPanel.SetActive (true);
 	}
 
 	public void ClosePausePanelButtonHandler ()
 	{
 		pausePanel.SetActive (false);
+		opacityPanel.SetActive (false);
 	}
 
 	public void ShopButtonButtonHandler ()
 	{
 		shopPanel.SetActive (true);
+		opacityPanel.SetActive (true);
 	}
 
 	public void CloseShopPanelButtonHandler ()
@@ -435,6 +443,46 @@ public class GameManager : MonoBehaviour
 		shopPanel.SetActive (false);
 	}
 
+	public void ExitToMainButtonHandler ()
+	{
+		opacityPanel1.SetActive (true);
+		areYouSurePanel.SetActive (true);
+	}
+
+	public void YesButtonHandler ()
+	{
+		SceneManager.LoadScene (0);
+	}
+
+	public void NoButtonHandler ()
+	{
+		areYouSurePanel.SetActive (false);
+		opacityPanel1.SetActive (false);
+	}
+
+	public void x2VideoButtonHandler ()
+	{
+		if (!x2VideoButtonPressed) {
+			oneGameMoney *= 2;
+			gameOverMoney.text = oneGameMoney.ToString ();
+			x2VideoButtonPressed = true;
+		}
+	}
+
+	public void x2BuyButtonHandler ()
+	{
+		MoneyTracker.Instance.IsX2 = true;
+	}
+
+	private void GameOver ()
+	{
+		gameOverMoney.text = oneGameMoney.ToString ();
+		gameOverPanel.SetActive (true);
+		opacityPanel.SetActive (true);
+	}
+
+
+		
 	public void Move (MoveDirection md, bool generate)
 	{
 		SaveGamePosition ();

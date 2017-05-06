@@ -10,6 +10,7 @@ public class ScoreTracker : MonoBehaviour
 	public Text ScoreText;
 	public Text HighScoreText;
 
+
 	public int Score {
 		get { 
 			return score;
@@ -27,7 +28,6 @@ public class ScoreTracker : MonoBehaviour
 
 	}
 
-
 	void Awake ()
 	{
 		Instance = this;
@@ -35,8 +35,7 @@ public class ScoreTracker : MonoBehaviour
 		if (!PlayerPrefs.HasKey ("HighScore"))
 			PlayerPrefs.SetInt ("HighScore", 0);
 
-		ScoreText.text = "000";
 		HighScoreText.text = PlayerPrefs.GetInt ("HighScore").ToString ();
 	}
-
+		
 }
