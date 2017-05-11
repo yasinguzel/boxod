@@ -436,6 +436,7 @@ public class GameManager : MonoBehaviour
 	{
 		shopPanel.SetActive (true);
 		opacityPanel.SetActive (true);
+		GetComponent<Animation>().Play ();
 	}
 
 	public void CloseShopPanelButtonHandler ()
@@ -447,6 +448,7 @@ public class GameManager : MonoBehaviour
 	{
 		opacityPanel1.SetActive (true);
 		areYouSurePanel.SetActive (true);
+		GetComponent<Animation>().Play ();
 	}
 
 	public void YesButtonHandler ()
@@ -479,6 +481,7 @@ public class GameManager : MonoBehaviour
 		gameOverMoney.text = oneGameMoney.ToString ();
 		gameOverPanel.SetActive (true);
 		opacityPanel.SetActive (true);
+		GetComponent<Animation>().Play ();
 	}
 
 
