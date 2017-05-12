@@ -436,12 +436,14 @@ public class GameManager : MonoBehaviour
 	{
 		shopPanel.SetActive (true);
 		opacityPanel.SetActive (true);
+		opacityPanel1.SetActive (true);
 		GetComponent<Animation>().Play ();
 	}
 
 	public void CloseShopPanelButtonHandler ()
 	{
 		shopPanel.SetActive (false);
+		opacityPanel1.SetActive (false);
 	}
 
 	public void ExitToMainButtonHandler ()
@@ -449,6 +451,11 @@ public class GameManager : MonoBehaviour
 		opacityPanel1.SetActive (true);
 		areYouSurePanel.SetActive (true);
 		GetComponent<Animation>().Play ();
+	}
+
+	public void ExitToMainScreen ()
+	{
+		SceneManager.LoadScene (0);
 	}
 
 	public void YesButtonHandler ()
