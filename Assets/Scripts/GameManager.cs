@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEditor.Animations;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
 	private List<int[]> savedTiles = new List<int[]> ();
 	private List<int> savedScores = new List<int> ();
 
+
 	private int destroyedRedBox;
 	private int destroyedPurpleBox;
 	private int destroyedGreenBox;
@@ -33,6 +35,7 @@ public class GameManager : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+		
 		Tile[] AllTilesOneDim = GameObject.FindObjectsOfType<Tile> ();
 
 		foreach (Tile t in AllTilesOneDim) {
@@ -416,7 +419,8 @@ public class GameManager : MonoBehaviour
 
 	public void CloseGameOverPanelButtonHandler ()
 	{
-		gameOverPanel.SetActive (false);
+		gameOverPanel.GetComponent<Animator>().SetTrigger ("close");
+		//gameOverPanel.SetActive (false);
 		opacityPanel.SetActive (false);
 	}
 
@@ -486,9 +490,10 @@ public class GameManager : MonoBehaviour
 	private void GameOver ()
 	{
 		gameOverMoney.text = oneGameMoney.ToString ();
+
 		gameOverPanel.SetActive (true);
 		opacityPanel.SetActive (true);
-		GetComponent<Animation>().Play ();
+		gameOverPanel.GetComponent<Animator>().SetTrigger ("open");
 	}
 
 
