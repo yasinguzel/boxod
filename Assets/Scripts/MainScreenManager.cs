@@ -32,10 +32,17 @@ public class MainScreenManager : MonoBehaviour {
 	public void ShopButtonHandler(){
 		shopPanel.SetActive (true);
 		opacityPanel.SetActive (true);
+		shopPanel.GetComponent<Animator>().SetTrigger ("open");
 	}
 
 	public void CloseShopButtonHandler(){
-		shopPanel.SetActive (false);
+		shopPanel.GetComponent<Animator>().SetTrigger ("close");
+		//shopPanel.SetActive (false);
 		opacityPanel.SetActive (false);
+
+	}
+
+	void Update(){
+		moneyText.text = PlayerPrefs.GetInt ("Money").ToString ();
 	}
 }
