@@ -443,12 +443,13 @@ public class GameManager : MonoBehaviour
 		shopPanel.SetActive (true);
 		opacityPanel.SetActive (true);
 		opacityPanel1.SetActive (true);
-		GetComponent<Animation>().Play ();
+		shopPanel.GetComponent<Animator>().SetTrigger ("open");
 	}
 
 	public void CloseShopPanelButtonHandler ()
 	{
-		shopPanel.SetActive (false);
+		shopPanel.GetComponent<Animator>().SetTrigger ("close");
+		//shopPanel.SetActive (false);
 		opacityPanel1.SetActive (false);
 	}
 
