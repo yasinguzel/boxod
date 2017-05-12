@@ -428,11 +428,13 @@ public class GameManager : MonoBehaviour
 	{
 		pausePanel.SetActive (true);
 		opacityPanel.SetActive (true);
+		pausePanel.GetComponent<Animator>().SetTrigger ("open");
 	}
 
 	public void ClosePausePanelButtonHandler ()
 	{
-		pausePanel.SetActive (false);
+		//pausePanel.SetActive (false);
+		pausePanel.GetComponent<Animator>().SetTrigger ("close");
 		opacityPanel.SetActive (false);
 	}
 
@@ -454,7 +456,7 @@ public class GameManager : MonoBehaviour
 	{
 		opacityPanel1.SetActive (true);
 		areYouSurePanel.SetActive (true);
-		GetComponent<Animation>().Play ();
+		areYouSurePanel.GetComponent<Animator>().SetTrigger ("open");
 	}
 
 	public void ExitToMainScreen ()
@@ -469,7 +471,8 @@ public class GameManager : MonoBehaviour
 
 	public void NoButtonHandler ()
 	{
-		areYouSurePanel.SetActive (false);
+		areYouSurePanel.GetComponent<Animator>().SetTrigger ("close");
+		//areYouSurePanel.SetActive (false);
 		opacityPanel1.SetActive (false);
 	}
 
