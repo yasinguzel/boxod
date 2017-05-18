@@ -432,7 +432,6 @@ public class GameManager : MonoBehaviour
 
 	public void ClosePausePanelButtonHandler ()
 	{
-		//pausePanel.SetActive (false);
 		pausePanel.GetComponent<Animator>().SetTrigger ("close");
 		opacityPanel.SetActive (false);
 	}
