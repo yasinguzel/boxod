@@ -53,11 +53,11 @@ public class MoneyTracker : MonoBehaviour
 		}
 
 		//for debug
-		if (PlayerPrefs.GetInt("isX2") == 1) {
+		/*if (PlayerPrefs.GetInt("isX2") == 1) {
 			isX2Text.text = "x2 True";
 		} else {
 			isX2Text.text = "x2 False";
-		}
+		}*/
 
 		MoneyText.text = PlayerPrefs.GetInt ("Money").ToString ();
 		money = PlayerPrefs.GetInt ("Money");
