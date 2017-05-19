@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
 	public GameObject pausePanel;
 	public GameObject shopPanel;
 	public GameObject areYouSurePanel;
-	public GameObject opacityPanel1;
 
 
 	private Tile[,] AllTiles = new Tile[5, 5];
@@ -440,20 +439,17 @@ public class GameManager : MonoBehaviour
 	{
 		shopPanel.SetActive (true);
 		opacityPanel.SetActive (true);
-		opacityPanel1.SetActive (true);
 		shopPanel.GetComponent<Animator>().SetTrigger ("open");
 	}
 
 	public void CloseShopPanelButtonHandler ()
 	{
 		shopPanel.GetComponent<Animator>().SetTrigger ("close");
-		//shopPanel.SetActive (false);
-		opacityPanel1.SetActive (false);
 	}
 
 	public void ExitToMainButtonHandler ()
 	{
-		opacityPanel1.SetActive (true);
+		pausePanel.GetComponent<Animator>().SetTrigger ("slide");
 		areYouSurePanel.SetActive (true);
 		areYouSurePanel.GetComponent<Animator>().SetTrigger ("open");
 	}
@@ -471,8 +467,7 @@ public class GameManager : MonoBehaviour
 	public void NoButtonHandler ()
 	{
 		areYouSurePanel.GetComponent<Animator>().SetTrigger ("close");
-		//areYouSurePanel.SetActive (false);
-		opacityPanel1.SetActive (false);
+		pausePanel.GetComponent<Animator>().SetTrigger ("unslide");
 	}
 
 	public void x2VideoButtonHandler ()
