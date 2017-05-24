@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
 	public GameObject shopPanel;
 	public GameObject areYouSurePanel;
 
+	public AudioSource[] mergedSounds;
+
 
 	private Tile[,] AllTiles = new Tile[5, 5];
 	private List<Tile[]> columns = new List<Tile[]> ();
@@ -193,7 +195,10 @@ public class GameManager : MonoBehaviour
 					GameObject.Find ("Canvas/MainPanel/DestroyedInfo").GetComponent<Text> ().text = "Destroyed Green Box";
 					destroyedGreenBox++;
 				}
-				
+
+				//Play merged sounds
+				mergedSounds[Random.Range (0, 3)].Play();
+
 				return true;
 			}
 
@@ -242,7 +247,8 @@ public class GameManager : MonoBehaviour
 					destroyedGreenBox++;
 				}
 
-
+				//Play merged sounds
+				mergedSounds[Random.Range (0, 3)].Play();
 
 				return true;
 			}
