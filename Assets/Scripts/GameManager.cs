@@ -32,6 +32,9 @@ public class GameManager : MonoBehaviour
 
 	private bool x2VideoButtonPressed = false;
 
+
+
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -172,6 +175,8 @@ public class GameManager : MonoBehaviour
 				LineOfTiles [i + 1].Number = 0;
 				LineOfTiles [i].mergedThisTurn = true;
 
+				LineOfTiles [i].PlayMergeAnimation ();
+
 				if (LineOfTiles [i].Number == 2 || LineOfTiles [i].Number == 6 || LineOfTiles [i].Number == 10) {
 					ScoreTracker.Instance.Score += 3;
 				} else if (LineOfTiles [i].Number == 3 || LineOfTiles [i].Number == 7 || LineOfTiles [i].Number == 11) {
@@ -194,6 +199,8 @@ public class GameManager : MonoBehaviour
 					LineOfTiles [i].Number = 0;
 					GameObject.Find ("Canvas/MainPanel/DestroyedInfo").GetComponent<Text> ().text = "Destroyed Green Box";
 					destroyedGreenBox++;
+				} else {
+				
 				}
 
 				//Play merged sounds
@@ -222,6 +229,8 @@ public class GameManager : MonoBehaviour
 				LineOfTiles [i].Number += 1;
 				LineOfTiles [i - 1].Number = 0;
 				LineOfTiles [i].mergedThisTurn = true;
+
+				LineOfTiles [i].PlayMergeAnimation ();
 
 				if (LineOfTiles [i].Number == 2 || LineOfTiles [i].Number == 6 || LineOfTiles [i].Number == 10) {
 					ScoreTracker.Instance.Score += 3;
@@ -269,7 +278,9 @@ public class GameManager : MonoBehaviour
 				EmptyTiles [indexForNewNumber].Number = 5;
 			else
 				EmptyTiles [indexForNewNumber].Number = 9;
-			
+
+			EmptyTiles [indexForNewNumber].PlayAppearAnimation ();
+
 			EmptyTiles.RemoveAt (indexForNewNumber);
 		}
 	}

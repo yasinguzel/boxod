@@ -11,6 +11,8 @@ public class Tile : MonoBehaviour
 	public int indRow;
 	public int indCol;
 
+	private Animator anim;
+
 
 	public int Number {
 		get {
@@ -33,7 +35,16 @@ public class Tile : MonoBehaviour
 
 	void Awake ()
 	{
+		anim = GetComponent<Animator> ();
 		tileImage = transform.Find ("ColoredCell").GetComponent<Image> ();
+	}
+
+	public void PlayMergeAnimation(){
+		anim.SetTrigger ("Merged");
+	}
+
+	public void PlayAppearAnimation(){
+		anim.SetTrigger ("Appear");
 	}
 
 	void ApplyStyleFromHolder (int index)
