@@ -450,11 +450,13 @@ public class GameManager : MonoBehaviour
 	{
 		shopPanel.SetActive (true);
 		opacityPanel.SetActive (true);
+		gameOverPanel.GetComponent<Animator>().SetTrigger ("openShop");
 		shopPanel.GetComponent<Animator>().SetTrigger ("open");
 	}
 
 	public void CloseShopPanelButtonHandler ()
 	{
+		gameOverPanel.GetComponent<Animator>().SetTrigger ("closedShop");
 		shopPanel.GetComponent<Animator>().SetTrigger ("close");
 	}
 
