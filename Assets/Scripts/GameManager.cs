@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
 	public GameObject areYouSurePanel;
 
 	public AudioSource[] mergedSounds;
-
+	public AudioSource backgroundSound;
 
 	private Tile[,] AllTiles = new Tile[5, 5];
 	private List<Tile[]> columns = new List<Tile[]> ();
@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
 	private int oneGameMoney;
 
 	private bool x2VideoButtonPressed = false;
-
+	private bool musicOn = true;
 
 
 
@@ -187,17 +187,14 @@ public class GameManager : MonoBehaviour
 
 				if (LineOfTiles [i].Number == 4) {
 					LineOfTiles [i].Number = 0;
-					GameObject.Find ("Canvas/MainPanel/DestroyedInfo").GetComponent<Text> ().text = "Destroyed Red Box";
 					destroyedRedBox++;
 				}
 				if (LineOfTiles [i].Number == 8) {
 					LineOfTiles [i].Number = 0;
-					GameObject.Find ("Canvas/MainPanel/DestroyedInfo").GetComponent<Text> ().text = "Destroyed Purple Box";
 					destroyedPurpleBox++;
 				}
 				if (LineOfTiles [i].Number == 12) {
 					LineOfTiles [i].Number = 0;
-					GameObject.Find ("Canvas/MainPanel/DestroyedInfo").GetComponent<Text> ().text = "Destroyed Green Box";
 					destroyedGreenBox++;
 				} else {
 				
@@ -242,17 +239,14 @@ public class GameManager : MonoBehaviour
 
 				if (LineOfTiles [i].Number == 4) {
 					LineOfTiles [i].Number = 0;
-					GameObject.Find ("Canvas/MainPanel/DestroyedInfo").GetComponent<Text> ().text = "Destroyed Red Box";
 					destroyedRedBox++;
 				}
 				if (LineOfTiles [i].Number == 8) {
 					LineOfTiles [i].Number = 0;
-					GameObject.Find ("Canvas/MainPanel/DestroyedInfo").GetComponent<Text> ().text = "Destroyed Purple Box";
 					destroyedPurpleBox++;
 				}
 				if (LineOfTiles [i].Number == 12) {
 					LineOfTiles [i].Number = 0;
-					GameObject.Find ("Canvas/MainPanel/DestroyedInfo").GetComponent<Text> ().text = "Destroyed Green Box";
 					destroyedGreenBox++;
 				}
 
@@ -494,6 +488,16 @@ public class GameManager : MonoBehaviour
 			gameOverMoney.text = oneGameMoney.ToString ();
 			x2VideoButtonPressed = true;
 		}
+	}
+
+	public void MusicButtonHandler(){
+		if (musicOn) {
+			backgroundSound.Pause ();
+			musicOn = false;
+		} else {
+			backgroundSound.Play ();
+			musicOn = true;
+		} 
 	}
 
 	public void x2BuyButtonHandler ()

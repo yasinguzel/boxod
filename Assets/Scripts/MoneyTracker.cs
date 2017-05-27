@@ -9,7 +9,6 @@ public class MoneyTracker : MonoBehaviour
 	private bool isX2;
 	public static MoneyTracker Instance;
 	public Text MoneyText;
-	public Text isX2Text;
 
 	public int Money {
 		get { 
@@ -32,10 +31,8 @@ public class MoneyTracker : MonoBehaviour
 
 			if (isX2) {
 				PlayerPrefs.SetInt ("isX2", 1);
-				isX2Text.text = "x2 True";
 			} else {
 				PlayerPrefs.SetInt ("isX2", 0);
-				isX2Text.text = "x2 False";
 			}
 				
 		}
