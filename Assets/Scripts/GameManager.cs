@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
 	public GameObject pausePanel;
 	public GameObject shopPanel;
 	public GameObject areYouSurePanel;
+	public GameObject MoneyText;
+	public GameObject MoneyIcon;
 
 	public AudioSource[] mergedSounds;
 	public AudioSource backgroundSound;
@@ -396,9 +398,11 @@ public class GameManager : MonoBehaviour
 
 	private void DestroyBoxToMoney ()
 	{
+		
 		totalDestroyedBox = destroyedRedBox + destroyedPurpleBox + destroyedGreenBox;
 
 		if (totalDestroyedBox != 0) {
+			MoneyAnimation ();
 			oneGameMoney += Square (totalDestroyedBox);
 		}
 
@@ -507,10 +511,14 @@ public class GameManager : MonoBehaviour
 		MoneyTracker.Instance.IsX2 = true;
 	}
 
+	public void MoneyAnimation(){
+		MoneyText.GetComponent<Animator>().SetTrigger ("Taked Money");
+		MoneyIcon.GetComponent<Animator>().SetTrigger ("Taked Money");
+	}
+
 	private void GameOver ()
 	{
 		gameOverMoney.text = oneGameMoney.ToString ();
-
 		gameOverPanel.SetActive (true);
 		opacityPanel.SetActive (true);
 		gameOverPanel.GetComponent<Animator>().SetTrigger ("open");

@@ -16,11 +16,6 @@ public class MoneyTracker : MonoBehaviour
 			return money;
 		}
 		set {
-
-			//Taked money animation
-			MoneyText.GetComponent<Animator>().SetTrigger ("Taked Money");
-			MoneyIcon.GetComponent<Animator>().SetTrigger ("Taked Money");
-
 			money = value;
 			MoneyText.text = money.ToString ();
 			PlayerPrefs.SetInt ("Money", money);
@@ -75,4 +70,5 @@ public class MoneyTracker : MonoBehaviour
 	{
 		MoneyText.text = money.ToString ();
 	}
+
 }
