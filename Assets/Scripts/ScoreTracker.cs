@@ -9,17 +9,24 @@ public class ScoreTracker : MonoBehaviour
 	public static ScoreTracker Instance;
 	public Text ScoreText;
 	public Text HighScoreText;
-
+	public GameObject HighScoreIcon;
 
 	public int Score {
 		get { 
 			return score;
 		}
 		set { 
+			//Take score Animation
+			ScoreText.GetComponent<Animator>().SetTrigger ("Taked Score");
 			score = value;
 			ScoreText.text = score.ToString ();
 
+
 			if (PlayerPrefs.GetInt ("HighScore") < score) {
+				//High Score Animation
+				HighScoreIcon.GetComponent<Animator>().SetTrigger ("High Score");
+				HighScoreText.GetComponent<Animator>().SetTrigger ("High Score");
+
 				PlayerPrefs.SetInt ("HighScore", score);
 				HighScoreText.text = score.ToString ();
 			}

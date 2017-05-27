@@ -9,12 +9,18 @@ public class MoneyTracker : MonoBehaviour
 	private bool isX2;
 	public static MoneyTracker Instance;
 	public Text MoneyText;
+	public GameObject MoneyIcon;
 
 	public int Money {
 		get { 
 			return money;
 		}
-		set { 
+		set {
+
+			//Taked money animation
+			MoneyText.GetComponent<Animator>().SetTrigger ("Taked Money");
+			MoneyIcon.GetComponent<Animator>().SetTrigger ("Taked Money");
+
 			money = value;
 			MoneyText.text = money.ToString ();
 			PlayerPrefs.SetInt ("Money", money);
