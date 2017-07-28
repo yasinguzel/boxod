@@ -12,6 +12,7 @@ public class MainScreenManager : MonoBehaviour {
 	public GameObject shopPanel;
 	public GameObject opacityPanel;
 	public int buttonPressedCount;
+	bool shopPanelIsActive;
 
 	void Awake(){
 		buttonPressedCount = 0;
@@ -35,20 +36,26 @@ public class MainScreenManager : MonoBehaviour {
 		shopPanel.SetActive (true);
 		opacityPanel.SetActive (true);
 		shopPanel.GetComponent<Animator>().SetTrigger ("open");
+		shopPanelIsActive = true;
 	}
 
 	public void CloseShopButtonHandler(){
 		shopPanel.GetComponent<Animator>().SetTrigger ("close");
-		//shopPanel.SetActive (false);
 		opacityPanel.SetActive (false);
-
+		shopPanelIsActive = false;
 	}
 
 	void Update(){
 		moneyText.text = PlayerPrefs.GetInt ("Money").ToString ();
+
 		if (Application.platform == RuntimePlatform.Android) {
 			if (Input.GetKeyUp (KeyCode.Escape)) {
-				buttonPressedCount++;
+				if(shopPanelIsActive){
+					CloseShopButtonHandler();
+				}
+				else{
+					buttonPressedCount++;
+				}
 			}
 		}
 		if (buttonPressedCount == 1) {
