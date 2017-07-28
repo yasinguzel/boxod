@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
 	private bool x2VideoButtonPressed = false;
 	private bool musicOn = true;
 
-
+	public bool areYouSurePanelIsActive,gameOverPanelIsActive,shopPanelIsActive,pausePanelIsActive;
 
 	// Use this for initialization
 	void Start ()
@@ -317,6 +317,7 @@ public class GameManager : MonoBehaviour
 
 	public void ShuffleButtonHandler ()
 	{
+		Debug.Log("Hi");
 		if (!(MoneyTracker.Instance.Money <= 50)) {
 			SaveGamePosition ();
 			Tile[] AllTilesOneDim = GameObject.FindObjectsOfType<Tile> ();
@@ -343,7 +344,6 @@ public class GameManager : MonoBehaviour
 
 
 	}
-
 	public void UndoButtonHandler ()
 	{
 		if (!(MoneyTracker.Instance.Money <= 5)) {
@@ -441,8 +441,8 @@ public class GameManager : MonoBehaviour
 	public void CloseGameOverPanelButtonHandler ()
 	{
 		gameOverPanel.GetComponent<Animator>().SetTrigger ("close");
-		//gameOverPanel.SetActive (false);
 		opacityPanel.SetActive (false);
+		gameOverPanelIsActive = false;
 	}
 
 	public void PauseButtonButtonHandler ()
@@ -450,12 +450,14 @@ public class GameManager : MonoBehaviour
 		pausePanel.SetActive (true);
 		opacityPanel.SetActive (true);
 		pausePanel.GetComponent<Animator>().SetTrigger ("open");
+		pausePanelIsActive = true;
 	}
 
 	public void ClosePausePanelButtonHandler ()
 	{
 		pausePanel.GetComponent<Animator>().SetTrigger ("close");
 		opacityPanel.SetActive (false);
+		pausePanelIsActive = false;
 	}
 
 	public void ShopButtonButtonHandler ()
@@ -464,12 +466,16 @@ public class GameManager : MonoBehaviour
 		opacityPanel.SetActive (true);
 		gameOverPanel.GetComponent<Animator>().SetTrigger ("openShop");
 		shopPanel.GetComponent<Animator>().SetTrigger ("open");
+		shopPanelIsActive = true;
+		gameOverPanelIsActive = false;
 	}
 
 	public void CloseShopPanelButtonHandler ()
 	{
 		gameOverPanel.GetComponent<Animator>().SetTrigger ("closedShop");
 		shopPanel.GetComponent<Animator>().SetTrigger ("close");
+		shopPanelIsActive = false;
+		gameOverPanelIsActive = true;
 	}
 
 	public void ExitToMainButtonHandler ()
@@ -477,6 +483,7 @@ public class GameManager : MonoBehaviour
 		pausePanel.GetComponent<Animator>().SetTrigger ("slide");
 		areYouSurePanel.SetActive (true);
 		areYouSurePanel.GetComponent<Animator>().SetTrigger ("open");
+		areYouSurePanelIsActive = true;
 	}
 
 	public void ExitToMainScreen ()
@@ -493,6 +500,7 @@ public class GameManager : MonoBehaviour
 	{
 		areYouSurePanel.GetComponent<Animator>().SetTrigger ("close");
 		pausePanel.GetComponent<Animator>().SetTrigger ("unslide");
+		areYouSurePanelIsActive = false;
 	}
 
 	public void x2VideoButtonHandler ()
@@ -530,6 +538,7 @@ public class GameManager : MonoBehaviour
 		gameOverPanel.SetActive (true);
 		opacityPanel.SetActive (true);
 		gameOverPanel.GetComponent<Animator>().SetTrigger ("open");
+		gameOverPanelIsActive = true;
 	}
 
 
