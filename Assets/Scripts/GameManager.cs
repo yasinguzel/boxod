@@ -503,6 +503,11 @@ public class GameManager : MonoBehaviour
 		areYouSurePanelIsActive = false;
 	}
 
+	public void areYouSureClose(){
+		areYouSurePanel.GetComponent<Animator>().SetTrigger ("close");
+		areYouSurePanelIsActive = false;
+	}
+
 	public void x2VideoButtonHandler ()
 	{
 		if (!x2VideoButtonPressed) {
