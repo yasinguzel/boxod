@@ -12,7 +12,7 @@ public class MoneyTracker : MonoBehaviour
 	public GameObject MoneyIcon;
 
 	public int Money {
-		get { 
+		get {
 			return money;
 		}
 		set {
