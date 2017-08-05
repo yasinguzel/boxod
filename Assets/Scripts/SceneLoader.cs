@@ -12,8 +12,13 @@ public class SceneLoader : MonoBehaviour {
 	[SerializeField]
 	private Text loadingText;
 
+	public GameObject opacityPanel;
+	public GameObject loadingAnim;
+
 	public void playButton(){
 		playButtonHandler = true;
+		opacityPanel.SetActive(true);
+		loadingAnim.SetActive(true);
 	}
 
 
@@ -29,7 +34,7 @@ public class SceneLoader : MonoBehaviour {
 			playButtonHandler = false;
 
 			// ...change the instruction text to read "Loading..."
-			loadingText.text = "Loading...";
+			loadingText.text = "loading";
 
 			// ...and start a coroutine that will load the desired scene.
 			StartCoroutine(LoadNewScene());
