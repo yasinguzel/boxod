@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
 
 	public AudioSource[] mergedSounds;
 	public AudioSource backgroundSound;
+	public AudioSource[] expolodedSounds;
 
 	private Tile[,] AllTiles = new Tile[5, 5];
 	private List<Tile[]> columns = new List<Tile[]> ();
@@ -173,9 +174,6 @@ public class GameManager : MonoBehaviour
 
 			//MERGE BLOCK
 			if (LineOfTiles [i].Number != 0 && LineOfTiles [i].Number == LineOfTiles [i + 1].Number && LineOfTiles [i].mergedThisTurn == false && LineOfTiles [i + 1].mergedThisTurn == false && FindColorGroup (LineOfTiles, i) == FindColorGroup (LineOfTiles, i + 1)) {
-				
-				LineOfTiles [i].PlayMergeAnimation (LineOfTiles [i].Number);
-				
 				LineOfTiles [i].Number += 1;
 				LineOfTiles [i + 1].Number = 0;
 				LineOfTiles [i].mergedThisTurn = true;
@@ -189,18 +187,22 @@ public class GameManager : MonoBehaviour
 				}
 
 				if (LineOfTiles [i].Number == 4) {
+					LineOfTiles [i].PlayExplodedAnim(LineOfTiles [i].Number);
 					LineOfTiles [i].Number = 0;
 					destroyedRedBox++;
 				}
-				if (LineOfTiles [i].Number == 8) {
+				else if (LineOfTiles [i].Number == 8) {
+					LineOfTiles [i].PlayExplodedAnim(LineOfTiles [i].Number);
 					LineOfTiles [i].Number = 0;
 					destroyedPurpleBox++;
 				}
-				if (LineOfTiles [i].Number == 12) {
+				else if (LineOfTiles [i].Number == 12) {
+					LineOfTiles [i].PlayExplodedAnim(LineOfTiles [i].Number);
 					LineOfTiles [i].Number = 0;
 					destroyedGreenBox++;
-				} else {
-				
+				}
+				else{
+					LineOfTiles [i].PlayMergeAnimation (LineOfTiles [i].Number);
 				}
 
 				//Play merged sounds
@@ -226,9 +228,6 @@ public class GameManager : MonoBehaviour
 
 			//MERGE BLOCK
 			if (LineOfTiles [i].Number != 0 && LineOfTiles [i].Number == LineOfTiles [i - 1].Number && LineOfTiles [i].mergedThisTurn == false && LineOfTiles [i - 1].mergedThisTurn == false && FindColorGroup (LineOfTiles, i) == FindColorGroup (LineOfTiles, i - 1)) {
-				
-				LineOfTiles [i].PlayMergeAnimation (LineOfTiles [i].Number);
-				
 				LineOfTiles [i].Number += 1;
 				LineOfTiles [i - 1].Number = 0;
 				LineOfTiles [i].mergedThisTurn = true;
@@ -242,16 +241,22 @@ public class GameManager : MonoBehaviour
 				}
 
 				if (LineOfTiles [i].Number == 4) {
+					LineOfTiles [i].PlayExplodedAnim(LineOfTiles [i].Number);
 					LineOfTiles [i].Number = 0;
 					destroyedRedBox++;
 				}
-				if (LineOfTiles [i].Number == 8) {
+				else if (LineOfTiles [i].Number == 8) {
+					LineOfTiles [i].PlayExplodedAnim(LineOfTiles [i].Number);
 					LineOfTiles [i].Number = 0;
 					destroyedPurpleBox++;
 				}
-				if (LineOfTiles [i].Number == 12) {
+				else if (LineOfTiles [i].Number == 12) {
+					LineOfTiles [i].PlayExplodedAnim(LineOfTiles [i].Number);
 					LineOfTiles [i].Number = 0;
 					destroyedGreenBox++;
+				}
+				else{
+					LineOfTiles [i].PlayMergeAnimation (LineOfTiles [i].Number);
 				}
 
 				//Play merged sounds

@@ -5,15 +5,11 @@ using UnityEngine.UI;
 
 public class Tile : MonoBehaviour
 {
-
 	public bool mergedThisTurn = false;
-
 	public int indRow;
 	public int indCol;
 
 	private Animator anim;
-
-
 	public int Number {
 		get {
 			return number;
@@ -40,8 +36,22 @@ public class Tile : MonoBehaviour
 	}
 
 	public void PlayMergeAnimation(int i){
-		Debug.Log(i);
+		Debug.LogError(i);
 		anim.SetTrigger ("Merged");
+	}
+
+	public void PlayExplodedAnim(int tileNumber){
+		Debug.Log(tileNumber);
+		if(tileNumber == 4){
+			transform.Find("Image").GetComponent<Image>().color = TileStyleHolder.Instance.tileStyles[3].color;
+		}
+		else if(tileNumber == 8){
+			transform.Find("Image").GetComponent<Image>().color = TileStyleHolder.Instance.tileStyles[7].color;
+		}
+		else if(tileNumber == 12){
+			transform.Find("Image").GetComponent<Image>().color = TileStyleHolder.Instance.tileStyles[11].color;
+		}
+		anim.SetTrigger ("Exploded");
 	}
 
 	public void PlayAppearAnimation(){
