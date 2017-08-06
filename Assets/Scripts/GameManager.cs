@@ -173,11 +173,12 @@ public class GameManager : MonoBehaviour
 
 			//MERGE BLOCK
 			if (LineOfTiles [i].Number != 0 && LineOfTiles [i].Number == LineOfTiles [i + 1].Number && LineOfTiles [i].mergedThisTurn == false && LineOfTiles [i + 1].mergedThisTurn == false && FindColorGroup (LineOfTiles, i) == FindColorGroup (LineOfTiles, i + 1)) {
+				
+				LineOfTiles [i].PlayMergeAnimation (LineOfTiles [i].Number);
+				
 				LineOfTiles [i].Number += 1;
 				LineOfTiles [i + 1].Number = 0;
 				LineOfTiles [i].mergedThisTurn = true;
-
-				LineOfTiles [i].PlayMergeAnimation ();
 
 				if (LineOfTiles [i].Number == 2 || LineOfTiles [i].Number == 6 || LineOfTiles [i].Number == 10) {
 					ScoreTracker.Instance.Score += 3;
@@ -225,11 +226,12 @@ public class GameManager : MonoBehaviour
 
 			//MERGE BLOCK
 			if (LineOfTiles [i].Number != 0 && LineOfTiles [i].Number == LineOfTiles [i - 1].Number && LineOfTiles [i].mergedThisTurn == false && LineOfTiles [i - 1].mergedThisTurn == false && FindColorGroup (LineOfTiles, i) == FindColorGroup (LineOfTiles, i - 1)) {
+				
+				LineOfTiles [i].PlayMergeAnimation (LineOfTiles [i].Number);
+				
 				LineOfTiles [i].Number += 1;
 				LineOfTiles [i - 1].Number = 0;
 				LineOfTiles [i].mergedThisTurn = true;
-
-				LineOfTiles [i].PlayMergeAnimation ();
 
 				if (LineOfTiles [i].Number == 2 || LineOfTiles [i].Number == 6 || LineOfTiles [i].Number == 10) {
 					ScoreTracker.Instance.Score += 3;

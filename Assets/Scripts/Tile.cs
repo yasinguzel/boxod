@@ -39,7 +39,8 @@ public class Tile : MonoBehaviour
 		tileImage = transform.Find ("ColoredCell").GetComponent<Image> ();
 	}
 
-	public void PlayMergeAnimation(){
+	public void PlayMergeAnimation(int i){
+		Debug.Log(i);
 		anim.SetTrigger ("Merged");
 	}
 
