@@ -51,7 +51,7 @@ public class Tile : MonoBehaviour
 	void ApplyStyleFromHolder (int index)
 	{
 		tileImage.sprite = TileStyleHolder.Instance.tileStyles [index].sprite;
-	
+		tileImage.color = TileStyleHolder.Instance.tileStyles[index].color;
 	}
 
 	void ApplyStyle (int num)
@@ -101,24 +101,12 @@ public class Tile : MonoBehaviour
 
 	private void SetVisible ()
 	{
-		
 		tileImage.enabled = true;
 	}
 
 	private void SetEmpty ()
 	{
-
 		tileImage.sprite = TileStyleHolder.Instance.empty.sprite;
-	}
-	// Use this for initialization
-	void Start ()
-	{
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-		
+		tileImage.color = TileStyleHolder.Instance.empty.color;
 	}
 }

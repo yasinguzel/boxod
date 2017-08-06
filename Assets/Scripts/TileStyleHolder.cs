@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class TileStyle{
 
 	public Sprite sprite;
+	public Color color;
 }
 
 public class TileStyleHolder : MonoBehaviour {
