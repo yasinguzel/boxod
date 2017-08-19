@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+using Heyzap;
 public class GameManager : MonoBehaviour
 {
 	public Text gameOverMoney;
@@ -41,7 +41,8 @@ public class GameManager : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		
+		HeyzapAds.Start("9a5b94190642abf2b815c547052624d3", HeyzapAds.FLAG_NO_OPTIONS);
+		HZIncentivizedAd.Fetch();
 		Tile[] AllTilesOneDim = GameObject.FindObjectsOfType<Tile> ();
 
 		foreach (Tile t in AllTilesOneDim) {
@@ -510,9 +511,15 @@ public class GameManager : MonoBehaviour
 	public void x2VideoButtonHandler ()
 	{
 		if (!x2VideoButtonPressed) {
-			oneGameMoney *= 2;
-			gameOverMoney.text = oneGameMoney.ToString ();
-			x2VideoButtonPressed = true;
+			if (HZIncentivizedAd.IsAvailable()) {
+				oneGameMoney *= 2;
+				gameOverMoney.text = oneGameMoney.ToString ();
+				x2VideoButtonPressed = true;
+				HZIncentivizedAd.Show();
+			}
+			else{
+
+			}
 		}
 	}
 
@@ -535,8 +542,8 @@ public class GameManager : MonoBehaviour
 		MoneyText.GetComponent<Animator>().SetTrigger ("Taked Money");
 		MoneyIcon.GetComponent<Animator>().SetTrigger ("Taked Money");
 	}
-
-	private void GameOver ()
+//for a test
+	public void GameOver ()
 	{
 		gameOverMoney.text = oneGameMoney.ToString ();
 		gameOverPanel.SetActive (true);
