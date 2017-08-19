@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
 	{
 		HeyzapAds.Start("9a5b94190642abf2b815c547052624d3", HeyzapAds.FLAG_NO_OPTIONS);
 		HZIncentivizedAd.Fetch();
+		x2VideoButtonPressed = false;
 		Tile[] AllTilesOneDim = GameObject.FindObjectsOfType<Tile> ();
 
 		foreach (Tile t in AllTilesOneDim) {
@@ -317,7 +318,6 @@ public class GameManager : MonoBehaviour
 
 	public void ShuffleButtonHandler ()
 	{
-		Debug.Log("Hi");
 		if (!(MoneyTracker.Instance.Money <= 50)) {
 			SaveGamePosition ();
 			Tile[] AllTilesOneDim = GameObject.FindObjectsOfType<Tile> ();
@@ -435,7 +435,7 @@ public class GameManager : MonoBehaviour
 	public void NewGameButtonHandler ()
 	{
 		MoneyTracker.Instance.Money += oneGameMoney;
-		SceneManager.LoadScene (1);
+		SceneManager.LoadScene (2);
 	}
 
 	public void CloseGameOverPanelButtonHandler ()
@@ -542,7 +542,6 @@ public class GameManager : MonoBehaviour
 		MoneyText.GetComponent<Animator>().SetTrigger ("Taked Money");
 		MoneyIcon.GetComponent<Animator>().SetTrigger ("Taked Money");
 	}
-//for a test
 	public void GameOver ()
 	{
 		gameOverMoney.text = oneGameMoney.ToString ();

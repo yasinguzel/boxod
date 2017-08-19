@@ -36,12 +36,10 @@ public class Tile : MonoBehaviour
 	}
 
 	public void PlayMergeAnimation(int i){
-		Debug.LogError(i);
 		anim.SetTrigger ("Merged");
 	}
 
 	public void PlayExplodedAnim(int tileNumber){
-		Debug.Log(tileNumber);
 		if(tileNumber == 4){
 			transform.Find("Image").GetComponent<Image>().color = TileStyleHolder.Instance.tileStyles[3].color;
 		}
