@@ -9,6 +9,8 @@ public class Tile : MonoBehaviour
 	public int indRow;
 	public int indCol;
 
+	public AudioSource explodedSound;
+
 	private Animator anim;
 	public int Number {
 		get {
@@ -50,6 +52,7 @@ public class Tile : MonoBehaviour
 			transform.Find("Image").GetComponent<Image>().color = TileStyleHolder.Instance.tileStyles[11].color;
 		}
 		anim.SetTrigger ("Exploded");
+		explodedSound.Play();
 	}
 
 	public void PlayAppearAnimation(){
