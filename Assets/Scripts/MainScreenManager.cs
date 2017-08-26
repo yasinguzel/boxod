@@ -44,6 +44,9 @@ public class MainScreenManager : MonoBehaviour {
 		opacityPanel.SetActive (false);
 		shopPanelIsActive = false;
 	}
+	public void FacebookButton(){
+		Application.OpenURL("https://www.facebook.com/blackcocoentertainment/");
+	}
 
 	void Update(){
 		moneyText.text = PlayerPrefs.GetInt ("Money").ToString ();

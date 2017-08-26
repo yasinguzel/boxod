@@ -537,7 +537,7 @@ public class GameManager : MonoBehaviour
 	{
 		MoneyTracker.Instance.IsX2 = true;
 	}
-
+	
 	public void MoneyAnimation(){
 		MoneyText.GetComponent<Animator>().SetTrigger ("Taked Money");
 		MoneyIcon.GetComponent<Animator>().SetTrigger ("Taked Money");
