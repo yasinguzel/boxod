@@ -434,7 +434,6 @@ public class GameManager : MonoBehaviour
 
 	public void NewGameButtonHandler ()
 	{
-		MoneyTracker.Instance.Money += oneGameMoney;
 		SceneManager.LoadScene (2);
 	}
 
@@ -515,6 +514,7 @@ public class GameManager : MonoBehaviour
 				oneGameMoney *= 2;
 				gameOverMoney.text = oneGameMoney.ToString ();
 				x2VideoButtonPressed = true;
+				MoneyTracker.Instance.Money += oneGameMoney;
 				HZIncentivizedAd.Show();
 			}
 			else{
@@ -550,8 +550,9 @@ public class GameManager : MonoBehaviour
 		gameOverPanel.GetComponent<Animator>().SetTrigger ("open");
 		gameOverPanelIsActive = true;
 		Social.ReportScore(int.Parse(ScoreTracker.Instance.HighScoreText.text), "CgkI6ZDGmrMUEAIQAQ", (bool success) => {
-					gameOverMoney.text = success.ToString();
+					
     });
+		MoneyTracker.Instance.Money += oneGameMoney;
 	}
 
 
