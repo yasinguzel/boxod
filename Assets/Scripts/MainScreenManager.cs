@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using GooglePlayGames;
+using UnityEngine.SocialPlatforms;
+using GooglePlayGames.BasicApi;
 
 public class MainScreenManager : MonoBehaviour {
 
@@ -15,6 +18,11 @@ public class MainScreenManager : MonoBehaviour {
 	bool shopPanelIsActive;
 
 	void Awake(){
+    PlayGamesPlatform.Activate();
+
+		Social.localUser.Authenticate((bool success) => {
+    });
+
 		buttonPressedCount = 0;
 		if (!PlayerPrefs.HasKey ("HighScore"))
 			PlayerPrefs.SetInt ("HighScore", 0);
@@ -46,6 +54,10 @@ public class MainScreenManager : MonoBehaviour {
 	}
 	public void FacebookButton(){
 		Application.OpenURL("https://www.facebook.com/blackcocoentertainment/");
+	}
+
+	public void ShowLeaderBoard(){
+		Social.ShowLeaderboardUI();
 	}
 
 	void Update(){

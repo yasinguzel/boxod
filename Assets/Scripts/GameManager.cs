@@ -549,6 +549,9 @@ public class GameManager : MonoBehaviour
 		opacityPanel.SetActive (true);
 		gameOverPanel.GetComponent<Animator>().SetTrigger ("open");
 		gameOverPanelIsActive = true;
+		Social.ReportScore(int.Parse(ScoreTracker.Instance.HighScoreText.text), "CgkI6ZDGmrMUEAIQAQ", (bool success) => {
+					gameOverMoney.text = success.ToString();
+    });
 	}
 
 
